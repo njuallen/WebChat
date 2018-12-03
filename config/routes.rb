@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
   resources :users do
     collection do
       get :index_json
@@ -22,13 +23,16 @@ Rails.application.routes.draw do
 
   resources :friendships
 
-
   root 'homes#home'
 
-  get 'homes/login' => 'homes#login'
-  get 'homes/register' => 'homes#register'
-  get 'sessions/login' => 'sessions#new'
-  post 'sessions/login' => 'sessions#create'
-  post 'sessions/register' => 'sessions#register'
+  get 'sessions/new' => 'sessions#new'
+  post 'sessions/create' => 'sessions#create'
   delete 'sessions/logout' => 'sessions#destroy'
+
+  get 'users/new' => 'users#new'
+  post 'users/create' => 'users#create'
+  get 'users/:id' => 'users#show'
+  get 'users/:id/edit' => 'users#edit'
+  post 'users/:id/update' => 'users#update'
+  get 'users/:id/delete' => 'users#delete'
 end

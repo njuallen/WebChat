@@ -1,0 +1,16 @@
+<h1>用户登录</h1>
+
+<%= form_tag :action => 'create' do %>
+  <p>
+  <strong>邮箱: </strong>
+  <input value="user@example.com" type="email" name="session[email]" id="session_email">
+  <br/>
+  <strong>密码: </strong>
+  <input value="********" type="password" name="session[password]" id="session_password" />
+  <br/>
+  <input type="checkbox" value="1" name="session[remember_me]" id="session_remember_me" />
+  <strong>记住我</strong>
+  <br/>
+  <button name="button" type="submit"><strong>登录</strong></button>
+  </p>
+<% end -%>

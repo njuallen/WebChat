@@ -1,0 +1,16 @@
+<h1>用户注册</h1>
+
+<%= form_tag :action => 'create' do %>
+  <p>
+  <strong>姓名: </strong>
+  <input value="user" type="text" name="name" id="name"/>
+  <br/>
+  <strong>邮箱: </strong>
+  <input value="user@example.com" type="email" name="email" id="email"/>
+  <br/>
+  <strong>密码: </strong>
+  <input value="********" type="password" name="password" id="password"/>
+  <br/>
+  <button name="button" type="submit"><strong>注册</strong></button>
+  </p>
+<% end -%>
