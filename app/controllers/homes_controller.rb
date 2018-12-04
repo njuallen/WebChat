@@ -9,6 +9,13 @@ class HomesController < ApplicationController
     end
 
     puts "********\n\n"
+    puts "All friend applications:"
+    FriendApplication.all.each do |f|
+      puts f
+    end
+    puts "********\n\n"
+
+    puts "********\n\n"
     puts "All friends:"
     Friendship.all.each do |f|
       puts f
@@ -29,6 +36,23 @@ class HomesController < ApplicationController
     end
     puts "********\n\n"
 
+=begin
+    User.all.each do |user|
+      user.destroy
+    end
+    Chat.all.each do |user|
+      user.destroy
+    end
+    FriendApplication.all.each do |user|
+      user.destroy
+    end
+    Friendship.all.each do |user|
+      user.destroy
+    end
+    Message.all.each do |user|
+      user.destroy
+    end
+=end
   end
   def login
   end

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include SessionsHelper
-  before_action :set_user, except: [:index, :new, :create, :show_public, :index_json]
-  before_action :logged_in, only: [:show]
+  before_action :set_user, except: [:index, :new, :create, :show_public, :index_json, :search, :search_resp]
+  before_action :logged_in, only: [:show, :search]
   before_action :correct_user, only: :show
 
   def new
@@ -39,6 +39,17 @@ class UsersController < ApplicationController
     else
       flash= {:info => '该用户不存在'}
       redirect_to root_url, :flash => flash
+    end
+  end
+
+  def search
+  end
+
+  def search_resp
+    @match_users = User.where(name: params[:name])
+    if @match_users == nil
+      flash= {:info => '找不到此用户'}
+      redirect_to "users/search", :flash => flash
     end
   end
 

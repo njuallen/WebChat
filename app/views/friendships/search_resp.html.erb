@@ -1,0 +1,15 @@
+<h1>搜索结果</h1>
+<ol>
+  <% @match_users.each do |user| %>
+    <li>
+      <%= user.name %>
+      <%= user.email %>
+
+      <%= form_for Chat.new, url: chats_path, method: :post do |f| %>
+        <%= hidden_field_tag :users, [user.id] %>
+        <%= button_tag "添加好友" %>
+      <% end %>
+      <%= link_to "用户详情", "/users/#{user.id}/public" %>
+    </li>
+  <% end %>
+</ol>

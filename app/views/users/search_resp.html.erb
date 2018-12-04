@@ -1,0 +1,15 @@
+<h1>搜索结果</h1>
+<ol>
+  <% @match_users.each do |user| %>
+    <li>
+      <%= user.name %>
+      <%= user.email %>
+
+      <%= form_tag "/friendships/request", method: "post" do %>
+        <input name="friend_id" type="hidden" value="<%= user.id %>" />
+        <button name="button" type="submit">添加好友</button>
+      <% end -%>
+      <%= link_to "用户详情", "/user/#{user.id}/public" %>
+    </li>
+  <% end %>
+</ol>

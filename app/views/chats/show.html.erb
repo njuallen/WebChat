@@ -1,3 +1,8 @@
+<a href="/users/search">添加好友</a>
+<a href="/friendships/requests">未通过</a>
+<a href="/friendships/grants">待处理</a>
+<a href="/friendships/finished">已处理</a>
+
 <div>
   <div id="friends_list" style ="width: 400px; float: left; height: 800px; overflow: auto;" >
     <ol>
@@ -10,7 +15,7 @@
           <%= button_tag "发起聊天" %>
         <% end %>
 
-        <%= link_to "用户详情", "/users/#{user.id}/public" %>
+        <%= link_to "用户详情", "/user/#{user.id}/public" %>
 
         <%= link_to "删除好友", friendship_path(user), method: :delete %>
       </li>

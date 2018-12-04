@@ -1,12 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :users do
-    collection do
-      get :index_json
-    end
-  end
-
   resources :messages do
     collection do
       delete :destroyall
@@ -21,7 +15,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :friendships
 
   root 'homes#home'
 
@@ -31,9 +24,20 @@ Rails.application.routes.draw do
 
   get 'users/new' => 'users#new'
   post 'users/create' => 'users#create'
-  get 'users/:id' => 'users#show'
-  get 'users/:id/edit' => 'users#edit'
-  post 'users/:id/update' => 'users#update'
-  get 'users/:id/delete' => 'users#delete'
-  get 'users/:id/public' => 'users#show_public'
+  get 'users/search' => 'users#search'
+  post 'users/search' => 'users#search_resp'
+  get 'user/:id' => 'users#show'
+  get 'user/:id/edit' => 'users#edit'
+  patch 'user/:id/update' => 'users#update'
+  get 'user/:id/delete' => 'users#delete'
+  get 'user/:id/public' => 'users#show_public'
+
+  post 'friendships/request' => 'friendships#request_friendship'
+  post 'friendships/grant' => 'friendships#grant_friendship'
+  get 'friendships/requests' => 'friendships#my_friendship_request'
+  get 'friendships/grants' => 'friendships#my_friendship_grant'
+  get 'friendships/finished' => 'friendships#finished_friendship_requests'
+
+  resources :friendships
+  resources :user
 end

@@ -1,0 +1,13 @@
+<h1>已处理的好友申请</h1>
+<ol>
+  <% @finished_requests.each do |request| %>
+    <li>
+      <%= request.id %>
+      <% applicant = User.find_by(id: request.user_id) %>
+      <%= applicant.name %>
+      ->
+      <% friend = User.find_by(id: request.friend_id) %>
+      <%= friend.name %>
+    </li>
+  <% end %>
+</ol>

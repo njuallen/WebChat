@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :messages
+  has_many :friend_applications
   has_and_belongs_to_many :chats
 
   has_many :friendships
