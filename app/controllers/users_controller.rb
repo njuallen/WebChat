@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include SessionsHelper
-  before_action :set_user, except: [:index, :new, :create, :index_json]
+  before_action :set_user, except: [:index, :new, :create, :show_public, :index_json]
   before_action :logged_in, only: [:show]
   before_action :correct_user, only: :show
 
@@ -27,7 +27,19 @@ class UsersController < ApplicationController
     redirect_to root_url, :flash => flash
   end
 
+  # user use this to see his own profile
   def show
+  end
+
+  # show a user's public avaible info
+  def show_public
+    user = User.find_by(id: params[:id])
+    if user
+      @user = user
+    else
+      flash= {:info => '该用户不存在'}
+      redirect_to root_url, :flash => flash
+    end
   end
 
   def edit
@@ -53,7 +65,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :password_digest, :sex, :phonenumber)
   end
 
-# Confirms a logged-in user.
+  # Confirms a logged-in user.
   def logged_in
     unless logged_in?
       redirect_to root_url, flash: {danger: '请登陆'}

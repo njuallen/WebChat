@@ -10,7 +10,7 @@
           <%= button_tag "发起聊天" %>
         <% end %>
 
-        <%= link_to "用户详情", user_path(user) %>
+        <%= link_to "用户详情", "/users/#{user.id}/public" %>
 
         <%= link_to "删除好友", friendship_path(user), method: :delete %>
       </li>
