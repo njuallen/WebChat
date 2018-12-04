@@ -1,0 +1,23 @@
+<div>
+  <div id="friends_list" style ="width: 800px; float: left; height: 800px; overflow: auto;" >
+    <ol>
+      <% @friends.each do |user| %>
+      <li>
+        <%= user.name %>
+
+        <%= form_for Chat.new, url: chats_path, method: :post do |f| %>
+          <%= hidden_field_tag :users, [user.id] %>
+          <%= button_tag "发起聊天" %>
+        <% end %>
+
+        <%= link_to "用户详情", user_path(user) %>
+
+        <%= link_to "删除好友", friendship_path(user), method: :delete %>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+
+  <div id="chat_window" style = "width: 200px; float: left; height: 300px; background-color: green;" >
+  </div>
+</div>
