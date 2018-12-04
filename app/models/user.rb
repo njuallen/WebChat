@@ -36,7 +36,7 @@ class User < ApplicationRecord
   # Returns the hash digest of the given string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-        BCrypt::Engine.cost
+      BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
 
@@ -73,6 +73,14 @@ class User < ApplicationRecord
 
   def self.search_friends(params, current_user)
     User.all_except(current_user).all_except(current_user.friends).where("users.name LIKE ?", "%#{params[:query]}%")
+  end
+
+  def to_s
+    "id:#{self.id} "\
+    "name:#{self.name} email:#{self.email} "\
+      "password_digest:#{self.password_digest} sex:#{self.sex} "\
+      "phonenumber:#{self.phonenumber} created_at:#{self.created_at} "\
+      "updated_at:#{self.updated_at}"
   end
 
   private
