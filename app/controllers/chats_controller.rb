@@ -66,8 +66,8 @@ class ChatsController < ApplicationController
   end
 
   def show
-    # @new_message = Message.new
-    # @users_in_chat= @chat.users-[current_user]
+    @new_message = Message.new
+    @users_in_chat= @chat.users-[current_user]
     @friends=current_user.friends+current_user.inverse_friends
     @friends_out_chat=@friends-@chat.users
   end

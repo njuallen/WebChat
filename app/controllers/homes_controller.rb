@@ -7,12 +7,28 @@ class HomesController < ApplicationController
     User.all.each do |user|
       puts user
     end
+
     puts "********\n\n"
     puts "All friends:"
     Friendship.all.each do |f|
       puts f
     end
     puts "********\n\n"
+
+    puts "********\n\n"
+    puts "All chats:"
+    Chat.all.each do |f|
+      puts f
+    end
+    puts "********\n\n"
+
+    puts "********\n\n"
+    puts "All messages:"
+    Message.all.each do |f|
+      puts f
+    end
+    puts "********\n\n"
+
   end
   def login
   end
