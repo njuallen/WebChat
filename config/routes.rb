@@ -7,14 +7,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :chats do
-    member do
-      patch :trans_auth
-      post :add_user
-      delete :delete_user
-    end
-  end
-
 
   root 'homes#home'
 
@@ -38,6 +30,8 @@ Rails.application.routes.draw do
   get 'friendships/grants' => 'friendships#my_friendship_grant'
   get 'friendships/finished' => 'friendships#finished_friendship_requests'
 
+  get 'chats/bot' => 'chats#bot'
   resources :friendships
   resources :user
+  resources :chats
 end

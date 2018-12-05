@@ -3,7 +3,7 @@ class ChatsController < ApplicationController
   include ChatsHelper
   respond_to :js, :html
   before_action :logged_in
-  before_action :set_chat, except: [:index, :new, :create]
+  before_action :set_chat, except: [:index, :new, :create, :bot]
   before_action :correct_user, only: :show
 
   def index
@@ -70,6 +70,9 @@ class ChatsController < ApplicationController
     @users_in_chat= @chat.users-[current_user]
     @friends=current_user.friends+current_user.inverse_friends
     @friends_out_chat=@friends-@chat.users
+  end
+
+  def bot
   end
 
   private
