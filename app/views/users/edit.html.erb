@@ -1,12 +1,27 @@
-<h1>修改个人信息</h1>
-
-<%= form_for @user, :url =>{:action => "update", :id =>@user} do |f| %>
-  <p>
-  <strong>用户名: </strong><%= f.text_field 'name' %><br/>
-  <strong>邮箱: </strong><%= @user.email %><br/>
-  <strong>密码: </strong><%= f.text_field 'password_digest' %><br/>
-  <strong>性别: </strong><%= f.text_field 'sex' %><br/>
-  <strong>手机号码: </strong><%= f.text_field 'phonenumber' %><br/>
-  <%= f.submit "保存更改" %>
-  </p>
-<% end %>
+<div align="center" class="container-fluid">
+  <h1>修改个人信息</h1>
+  <div align="left" style="width:200px;">
+    <%= form_for @user, :url =>{:action => "update", :id =>@user} do |f| %>
+    <div class="form-group">
+      <label for="用户名">用户名:</label>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <label for="邮箱">邮箱:</label><%= @user.email %>
+    </div>
+    <div class="form-group">
+      <label for="密码">密码:</label>
+      <%= f.text_field :password_digest, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <label for="性别">性别:</label>
+      <%= f.text_field :sex, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <label for="手机号码">手机号码:</label>
+      <%= f.text_field :phonenumber, class: "form-control" %>
+    </div>
+    <%= f.submit "保存更改", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

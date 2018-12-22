@@ -1,10 +1,18 @@
-<h1>性感机器人在线陪聊</h1>
-
 <script type="text/javascript">
-  addMsg = function(msg) {
+  addMsg = function(user, msg) {
+    var is_me = user == "我";
+    var p_style = is_me ? "color:black;" : "color:green;";
+    var li_style = is_me ? "text-align: right;" : "text-align: left;"
+
     var ul = document.getElementById("list");
     var li = document.createElement("li");
-    li.appendChild(document.createTextNode(msg));
+    var p = document.createElement("p");
+
+    li.setAttribute("class", "list-group-item");
+    li.setAttribute("style", li_style);
+    p.setAttribute("style", p_style);
+    p.appendChild(document.createTextNode(msg));
+    li.appendChild(p)
     ul.appendChild(li)
   }
 
@@ -69,33 +77,69 @@ respond = function() {
   return response[index];
 }
 
+callback = function(data, status) {
+  <!-- Add response -->
+  local_response = respond();
+  intent_code = data["intent"]["code"]
+  bot_response = data["results"][0]["values"]["text"]
+
+  addMsg("机器人", bot_response);
+}
+
 sendMsg = function() {
   var input = document.getElementById("input_msg");
-  var datetime = Date()
 
-    <!-- Add user input message -->
-  addMsg("我@" + datetime + input.value)
+  <!-- Add user input message -->
+  addMsg("我", input.value)
+  url = "http://openapi.tuling123.com/openapi/api/v2";
+  apiKey = "3a189c6842524bb191f195b367a41b83";
+  userId = "0";
+  post_data = {
+    "reqType":0,
+    "perception": {
+      "inputText": {
+        "text": input.value
+      },
+    },
+    "userInfo": {
+      "apiKey": apiKey,
+      "userId": userId
+    }
+  }
+  jQuery.ajax({
+    url: url,
+    type: "POST",
+    data: JSON.stringify(post_data),
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    success: callback
+  })
 
-    <!-- Add response -->
-  addMsg("性感机器人@" + datetime + respond())
-
-    <!-- Remember to clear the input -->
-  input.value = ""
+  <!-- Remember to clear the input -->
+  input.value = "";
 }
 </script>
 
-<div id="chat_window" style ="width: 1000px; float: left; height: 800px; overflow: auto;" >
-<ul id="list">
-</ul>
-<input type="text" id="input_msg"/>
-<button onclick="sendMsg()">发送</button>
-</div>
+<div align="center" class="container">
+  <h1>机器人聊天</h1>
 
-<div id="performance_window" style ="width: 400px; float: left; height: 800px;" >
-<ul id="perf">
-</ul>
-  <li>用户满意度: 100</li>
-  <li>服务用户数: 1</li>
-  <li>平均会话时长: 30min</li>
-  <li>平均响应时间: 1ns</li>
+  <div class="row">
+    <div class="col-sm-6" id="friends_list" align="left" style="max-height:800px; overflow:auto;">
+      <ul class="list-group" id="list">
+      </ul>
+      <form class="form-inline" action="javascript:sendMsg()">
+        <input type="text" class="form-control" id="input_msg" style="display:inline;">
+        <input type="submit" value="发送" class="btn btn-primary">
+      </form>
+    </div>
+
+    <div id="performance_window" class="col-sm-5" align="left">
+      <ul class="list-group" id="perf">
+        <li>
+          <li class="list-group-item">用户满意度: 100</li>
+          <li class="list-group-item">服务用户数: 1</li>
+          <li class="list-group-item">平均会话时长: 30min</li>
+          <li class="list-group-item">平均响应时间: 1ns</li>
+    </div>
+  </div>
 </div>

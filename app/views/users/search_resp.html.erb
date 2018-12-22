@@ -1,15 +1,19 @@
-<h1>搜索结果</h1>
-<ol>
-  <% @match_users.each do |user| %>
-    <li>
-      <%= user.name %>
-      <%= user.email %>
+<div align="center" class="container-fluid">
+  <div align="left" style="width:400px;">
+    <h1>搜索结果</h1>
+    <ul class="list-group">
+      <% @match_users.each do |user| %>
+      <li class="list-group-item">
+        <%= user.name %>
+        <%= user.email %>
 
-      <%= form_tag "/friendships/request", method: "post" do %>
+        <%= form_tag "/friendships/request", method: "post", style: "display: inline;" do %>
         <input name="friend_id" type="hidden" value="<%= user.id %>" />
-        <button name="button" type="submit">添加好友</button>
-      <% end -%>
-      <%= link_to "用户详情", "/user/#{user.id}/public" %>
-    </li>
-  <% end %>
-</ol>
+        <button name="button" type="submit" class="btn btn-primary">添加好友</button>
+        <% end -%>
+        <%= link_to "用户详情", "/user/#{user.id}/public", class:"btn btn-info" %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

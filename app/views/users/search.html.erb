@@ -1,10 +1,12 @@
-<h1>用户搜索</h1>
-
-<%= form_tag :action => 'search' do %>
-  <p>
-  <strong>用户名</strong>
-  <input value="user" type="text" name="name" id="name"/>
-  <br/>
-  <button name="button" type="submit"><strong>搜索</strong></button>
-  </p>
-<% end -%>
+<div align="center" class="container-fluid">
+  <h1>用户搜索</h1>
+  <div align="left" style="width:200px;">
+    <%= form_tag :action => 'search' do %>
+    <div class="form-group">
+      <label for="用户名">用户名:</label>
+      <input type="text" class="form-control" name="name" id="name">
+    </div>
+    <button type="submit" class="btn btn-primary">搜索</button>
+    <% end -%>
+  </div>
+</div>

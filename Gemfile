@@ -22,6 +22,8 @@ gem 'thin', require: false
 gem 'responders', '~> 2.0'
 gem 'render_sync'
 
+gem 'font-awesome-rails'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 

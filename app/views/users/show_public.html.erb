@@ -1,7 +1,10 @@
-<h1><%= @user.name %> 现在可公开的情报</h1>
-
-<p>
-<strong>邮箱: </strong><%= @user.email %><br/>
-<strong>性别: </strong><%= @user.sex %><br/>
-<strong>手机号码: </strong><%= @user.phonenumber %><br/>
-</p>
+<div align="center" class="container-fluid">
+  <div class="card" align="left" style="width:400px">
+    <div class="card-body">
+      <h4 class="card-title"><%= @user.name %></h4>
+      <strong>邮箱: </strong><%= @user.email %><br/>
+      <strong>性别: </strong><%= @user.sex %><br/>
+      <strong>手机号码: </strong><%= @user.phonenumber %><br/>
+    </div>
+  </div>
+</div>

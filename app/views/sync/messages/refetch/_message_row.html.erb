@@ -1,14 +1,13 @@
-<li>
-  <p>
-  <%= current_user.id==message.user.id ? '我' : message.user.name %>
-  @
-  <%= message.created_at.to_formatted_s(:db) %>
-  :
+<% is_me = current_user.id==message.user.id %>
+<% li_style = is_me ? "text-align: right;" : "text-align: left;" %>
+<% p_style = is_me ? "color:black;" : "color:green;" %>
+<li class="list-group-item" style="<%=li_style%>" >
+  <p style="<%=p_style%>">
   <%= message.body %>
   </p>
 </li>
 
 <script>
-    var $cont = $('.nano-content');
-    $cont[0].scrollTop = $cont[0].scrollHeight;
+  var $cont = $('.nano-content');
+$cont[0].scrollTop = $cont[0].scrollHeight;
 </script>

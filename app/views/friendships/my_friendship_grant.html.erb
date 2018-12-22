@@ -1,22 +1,26 @@
-<h1>未处理的好友申请</h1>
-<ol>
-  <% @my_grants.each do |request| %>
-    <li>
-      <%= request.id %>
-      <% applicant = User.find_by(id: request.user_id) %>
-      <%= applicant.name %>
+<div align="center" class="container-fluid">
+  <div align="left" style="width:300px;">
+    <h1>未处理的好友申请</h1>
+    <ul class="list-group">
+      <% @my_grants.each do |request| %>
+      <li class="list-group-item">
+        <% request.id %>
+        <% applicant = User.find_by(id: request.user_id) %>
+        <%= applicant.name %>
 
-      <%= form_tag "/friendships/grant", method: "post" do %>
+        <%= form_tag "/friendships/grant", method: "post", style: "display: inline;" do %>
         <input name="id" type="hidden" value="<%= request.id %>" />
         <input name="decision" type="hidden" value="grant" />
-        <button name="button" type="submit">同意</button>
-      <% end -%>
+        <button name="button" type="submit" class="btn btn-success">同意</button>
+        <% end -%>
 
-      <%= form_tag "/friendships/grant", method: "post" do %>
+        <%= form_tag "/friendships/grant", method: "post", style: "display: inline;" do %>
         <input name="id" type="hidden" value="<%= request.id %>" />
         <input name="decision" type="hidden" value="decline" />
-        <button name="button" type="submit">拒绝</button>
-      <% end -%>
-    </li>
-  <% end %>
-</ol>
+        <button name="button" type="submit" class="btn btn-danger">拒绝</button>
+        <% end -%>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

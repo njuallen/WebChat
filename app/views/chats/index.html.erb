@@ -1,32 +1,40 @@
-<a href="/users/search">添加好友</a>
-<a href="/friendships/requests">未通过</a>
-<a href="/friendships/grants">待处理</a>
-<a href="/friendships/finished">已处理</a>
+<ul class="nav">
+  <li class="nav-item" style="float:left;">
+    <a class="nav-link" href="/users/search">添加好友<i class="fas fa-user-plus"></i></a>
+  </li>
+  <li class="nav-item" style="float:left;">
+    <a class="nav-link" href="/friendships/requests">未通过<span class="glyphicon glyphicon-ban-circle"></span></a>
+  </li>
+  <li class="nav-item" style="float:left;">
+    <a class="nav-link" href="/friendships/grants">待处理<span class="glyphicon glyphicon-list"></span></a>
+  </li>
+  <li class="nav-item" style="float:left;">
+    <a class="nav-link" href="/friendships/finished">已处理<span class="glyphicon glyphicon-check"></span></a>
+  </li>
+  <li class="nav-item" style="float:left;">
+    <a class="nav-link" href="/chats/bot">机器人聊天<i class="fas fa-robot"></i></a>
+  </li>
+</ul>
 
-<div>
-  <div id="friends_list" style ="width: 800px; float: left; height: 800px; overflow: auto;" >
-    <ol>
+<div class="row">
+  <div class="col-sm-4" id="friends_list" style ="max-height:800px; overflow:auto;">
+    <ul class="list-group">
       <% @friends.each do |user| %>
-      <li>
+      <li class="list-group-item">
         <%= user.name %>
 
-        <%= form_for Chat.new, url: chats_path, method: :post do |f| %>
-          <%= hidden_field_tag :users, [user.id] %>
-          <%= button_tag "发起聊天" %>
+        <%= form_for Chat.new, url: chats_path, method: :post, html: {style: "display: inline;"} do |f| %>
+        <%= hidden_field_tag :users, [user.id] %>
+        <%= button_tag "发起聊天", class:"btn btn-primary" %>
         <% end %>
 
-        <%= link_to "用户详情", "/user/#{user.id}/public" %>
+        <%= link_to "用户详情", "/user/#{user.id}/public", class:"btn btn-info" %>
 
-        <%= link_to "删除好友", friendship_path(user), method: :delete %>
+        <%= link_to "删除好友", friendship_path(user), method: :delete, class:"btn btn-danger" %>
       </li>
-    <% end %>
+      <% end %>
     </ul>
   </div>
-
-  <div id="chat_window" style = "width: 200px; float: left; height: 300px; background-color: green;" >
-    <ul>
-    </ul>
+  <div class="col-sm-8">
   </div>
 </div>
-
-<a href="/chats/bot">性感机器人在线陪聊</a>

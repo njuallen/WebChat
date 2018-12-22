@@ -1,10 +1,14 @@
-<h1>进行中的申请</h1>
-<ol>
-  <% @my_requests.each do |request| %>
-    <li>
-      <%= request.id %>
-      <% friend = User.find_by(id: request.friend_id) %>
-      <%= friend.name %>
-    </li>
-  <% end %>
-</ol>
+<div align="center" class="container-fluid">
+  <div align="left" style="width:250px;">
+    <h1>进行中的申请</h1>
+    <ul class="list-group">
+      <% @my_requests.each do |request| %>
+      <li class="list-group-item">
+        <% request.id %>
+        <% friend = User.find_by(id: request.friend_id) %>
+        <%= friend.name %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

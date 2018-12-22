@@ -1,14 +1,16 @@
-<h1><%= @user.name %></h1>
-
-<p>
-<strong>邮箱: </strong><%= @user.email %><br/>
-<strong>密码: </strong>********<br/>
-<strong>性别: </strong><%= @user.sex %><br/>
-<strong>手机号码: </strong><%= @user.phonenumber %><br/>
-<strong>注册时间: </strong><%= @user.created_at %><br/>
-<strong>上次修改时间: </strong><%= @user.updated_at %><br/>
-</p>
-
-<%= link_to '修改个人信息', {:action => 'edit'} %>
-<%= link_to '删除账户', {:action => 'delete'},
-  :confirm => "确定删除账户?" %>
+<div align="center" class="container-fluid">
+  <div class="card" align="left" style="width:400px">
+    <div class="card-body">
+      <h4 class="card-title"><%= @user.name %></h4>
+      <strong>邮箱: </strong><%= @user.email %><br/>
+      <strong>密码: </strong>********<br/>
+      <strong>性别: </strong><%= @user.sex %><br/>
+      <strong>手机号码: </strong><%= @user.phonenumber %><br/>
+      <strong>注册时间: </strong><%= @user.created_at %><br/>
+      <strong>上次修改时间: </strong><%= @user.updated_at %><br/>
+      <%= link_to '修改个人信息', {:action => 'edit'}, class: "btn btn-primary" %>
+      <%= link_to '删除账户', {:action => 'delete'},
+        :confirm => "确定删除账户?", class: "btn btn-danger" %>
+  </div>
+  </div>
+</div>
