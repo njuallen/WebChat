@@ -16,74 +16,33 @@
     ul.appendChild(li)
   }
 
-var index = 0;
-respond = function() {
-  var response = [
-    "oh, that's good",
-    "乖乖站好",
-    "who's the boss of the gym?",
-    "Ass♂We♂Can",
-    "Boy♂Next♂Door",
-    "Deep♂Dark♂Fantasy",
-    "Fa♂Q",
-    "帕秋莉♂go!",
-    "Shinnippori!!!",
-    "做得还不够好啊",
-    "你做得很不错嘛",
-    "那也是没有办法的事情嘛",
-    "这个世界太♂乱",
-    "来慰♂吾皇",
-    "奥义♂很爽",
-    "别走♂别走",
-    "吼吼吼♂全给党",
-    "你系深圳嚟噶？",
-    "♂我也是个广东人♂",
-    "Do you like WHAT♂YOU♂SEE玩♂游♂戏",
-    "SLAVES GET YOUR ASS♂ BACK HERE♂",
-    "♂阿姨好大胆！阿姨好大胆♂",
-    "THANK♂YOU♂SIR!",
-    "♂易建联!易建联♂!",
-    "oh my god♂阉割!",
-    "半鱼人",
-    "兔人",
-    "香蕉君",
-    "尻比",
-    "哲♂学来源是㚻片，这是不可否认的事实；但哲♂学本质是搞笑的，而不是搞基的",
-    "哲♂学只适合去追寻它的人，并不一定适合任何人（不要向不适合哲♂学的人强行展示或安利哲♂学，后果极有可能是引起他人的不爽）",
-    "哲♂学是带领我们向上的",
-    "哲♂学不存在歧视",
-    "哲♂学是善良的",
-    "哲♂学是积极的",
-    "哲♂学追求的是一种境界",
-    "哲♂学崇尚自由",
-    "哲♂学不可以代替爱情，每个兄贵都应该收获自己真挚的感♂情，而不是沉迷哲♂学无法自拔。",
-    "哲♂学是一种精神♂娱乐，丰富你的业余生活",
-    "哲♂学可以成为力量",
-    "哲♂学可以让人成为朋友",
-    "哲♂学不能用金钱购买",
-    "哲♂学使人心境愉快",
-    "哲♂学是一门思想",
-    "哲♂学是宽广的",
-    "哲♂学的来源是人的思♂想",
-    "哲♂学不是黑暗的",
-    "哲♂学是愉快的",
-    "哲♂学不是孤独的",
-    "哲♂学有一群伙伴",
-    "哲♂学需要你们的研究与思考",
-    "哲♂学需要你们",
-    "让我们大喊：Ass♂we♂can"
-  ];
-  index = index + 1;
-  return response[index];
+updatePerfMetrics = function(averageResponseTime) {
+  var li = document.getElementById("averageResponseTime");
+  li.innerHTML = `平均响应时间: ${averageResponseTime}ms`;
 }
+
+<!-- number of messages sent -->
+var numMessage = 0;
+<!-- total response time in ms -->
+var totalResponseTime;
+var sendMsgTime;
 
 callback = function(data, status) {
   <!-- Add response -->
-  local_response = respond();
-  intent_code = data["intent"]["code"]
-  bot_response = data["results"][0]["values"]["text"]
-
+  bot_response = data["response"]
   addMsg("机器人", bot_response);
+
+  <!-- update performance metrics -->
+  var date = new Date();
+  var elapsedTime = date.getTime() - sendMsgTime;
+  if (numMessage == 0) {
+    totalResponseTime = elapsedTime
+  } else {
+    totalResponseTime += elapsedTime
+  }
+
+  numMessage++;
+  updatePerfMetrics(totalResponseTime / numMessage)
 }
 
 sendMsg = function() {
@@ -91,20 +50,10 @@ sendMsg = function() {
 
   <!-- Add user input message -->
   addMsg("我", input.value)
-  url = "http://openapi.tuling123.com/openapi/api/v2";
-  apiKey = "3a189c6842524bb191f195b367a41b83";
-  userId = "0";
+  url = "http://10.30.6.126:3000/chats/bot_chat";
   post_data = {
-    "reqType":0,
-    "perception": {
-      "inputText": {
-        "text": input.value
-      },
-    },
-    "userInfo": {
-      "apiKey": apiKey,
-      "userId": userId
-    }
+    "userId": "<%= current_user.id %>",
+    "text": input.value
   }
   jQuery.ajax({
     url: url,
@@ -115,8 +64,10 @@ sendMsg = function() {
     success: callback
   })
 
-  <!-- Remember to clear the input -->
+    <!-- Remember to clear the input -->
   input.value = "";
+  var date = new Date();
+  sendMsgTime = date.getTime();
 }
 </script>
 
@@ -135,11 +86,11 @@ sendMsg = function() {
 
     <div id="performance_window" class="col-sm-5" align="left">
       <ul class="list-group" id="perf">
-        <li>
-          <li class="list-group-item">用户满意度: 100</li>
-          <li class="list-group-item">服务用户数: 1</li>
-          <li class="list-group-item">平均会话时长: 30min</li>
-          <li class="list-group-item">平均响应时间: 1ns</li>
+        <li class="list-group-item" id="userSatisfaction">用户满意度: 100</li>
+        <li class="list-group-item" id="numberOnlineUsers">服务用户数: 1</li>
+        <li class="list-group-item" id="averageChatTime">平均会话时长: 30min</li>
+        <li class="list-group-item" id="averageResponseTime">平均响应时间: 1ns</li>
+      </ul>
     </div>
   </div>
 </div>

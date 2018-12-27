@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get 'friendships/finished' => 'friendships#finished_friendship_requests'
 
   get 'chats/bot' => 'chats#bot'
+  post 'chats/bot_chat' => 'chats#bot_chat'
   resources :friendships
   resources :user
   resources :chats

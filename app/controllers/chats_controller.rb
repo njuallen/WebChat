@@ -2,9 +2,10 @@ class ChatsController < ApplicationController
   include SessionsHelper
   include ChatsHelper
   respond_to :js, :html
-  before_action :logged_in
-  before_action :set_chat, except: [:index, :new, :create, :bot]
+  before_action :logged_in, except: [:bot_chat]
+  before_action :set_chat, except: [:index, :new, :create, :bot , :bot_chat]
   before_action :correct_user, only: :show
+  protect_from_forgery except: :bot_chat
 
   def index
     @friends=current_user.friends+current_user.inverse_friends
@@ -73,6 +74,31 @@ class ChatsController < ApplicationController
   end
 
   def bot
+  end
+
+  def bot_chat
+    url = "http://openapi.tuling123.com/openapi/api/v2";
+    apiKey = "3a189c6842524bb191f195b367a41b83";
+    userId = "0";
+    post_data = {
+      "reqType":0,
+      "perception": {
+        "inputText": {
+          "text": params[:text]
+        },
+      },
+      "userInfo": {
+        "apiKey": apiKey,
+        "userId": userId
+      }
+    }
+    uri = URI.parse(url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    req = Net::HTTP::Post.new(uri.path, initheader = {'Content-Type' =>'application/json; charset=utf-8'})
+    req.body = post_data.to_json
+    res = JSON.parse(http.request(req).body)
+    resp = {"response" => res["results"][0]["values"]["text"]}
+    render json: resp
   end
 
   private
